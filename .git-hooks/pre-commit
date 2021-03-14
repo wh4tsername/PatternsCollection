@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+from pylint.lint import Run
+import glob
+import sys
+
+pyfiles = glob.glob('**/*.py', recursive=True)
+score = Run(pyfiles, do_exit=False).linter.stats['global_note']
+
+if float(score) < 9.0:
+	print("pylint score is too low to commit", file=sys.stderr)
+	exit(1)
